@@ -1,0 +1,7 @@
+{
+  "venvPath": "c:/Users/hgujju/Downloads/New folder",
+  "venv": ".venv",
+  "extraPaths": [
+    "backend"
+  ]
+}

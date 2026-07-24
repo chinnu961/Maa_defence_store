@@ -1,0 +1,17 @@
+version: "3.9"
+
+services:
+  db:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: maa_user
+      POSTGRES_PASSWORD: maa_password
+      POSTGRES_DB: maa_defence_stores
+    ports:
+      - "5432:5432"
+    volumes:
+      - maa_postgres_data:/var/lib/postgresql/data
+
+volumes:
+  maa_postgres_data:
