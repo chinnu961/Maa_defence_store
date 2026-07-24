@@ -40,7 +40,7 @@ export default function Contact() {
               <div>
                 <strong>Maa Defence Stores</strong>
                 <br />
-                <a 
+                <a
                   href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(contactInfo.shop_address)}`}
                   target="_blank"
                   rel="noopener noreferrer"
@@ -56,7 +56,7 @@ export default function Contact() {
               <div>
                 <strong>Phone Helpline</strong>
                 <br />
-                <a 
+                <a
                   href={`tel:${contactInfo.phone.replace(/[^\d+]/g, '')}`}
                   style={{ color: 'var(--accent-gold)', fontWeight: 'bold', textDecoration: 'underline' }}
                 >
@@ -70,7 +70,7 @@ export default function Contact() {
               <div>
                 <strong>Official Email Address</strong>
                 <br />
-                <a 
+                <a
                   href={`mailto:${contactInfo.email}`}
                   style={{ color: 'var(--accent-gold)', fontWeight: 'bold', textDecoration: 'underline' }}
                 >

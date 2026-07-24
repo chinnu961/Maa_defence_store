@@ -62,7 +62,7 @@ export default function AdminProductModal({ product, onClose, onSaved }) {
           .replace(/[^\w\-]+/g, '')       // Remove all non-word chars
           .replace(/\-\-+/g, '-');         // Replace multiple - with single -
       };
-      
+
       const nameSlug = slugify(form.name);
       if (nameSlug) {
         setForm(prev => ({
@@ -120,7 +120,7 @@ export default function AdminProductModal({ product, onClose, onSaved }) {
 
         <div id="adminProductFormContent">
           {error && <div className="auth-alert" style={{ marginBottom: '1rem' }}>{error}</div>}
-          
+
           <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
             {!isEditing && (
               <div className="form-group">
@@ -132,7 +132,7 @@ export default function AdminProductModal({ product, onClose, onSaved }) {
               <label className="form-label">Name</label>
               <input required type="text" name="name" value={form.name} onChange={handleChange} className="form-input-text" />
             </div>
-            
+
             <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
               <div className="form-group" style={{ flex: '1 1 200px' }}>
                 <label className="form-label">Category</label>
@@ -163,7 +163,7 @@ export default function AdminProductModal({ product, onClose, onSaved }) {
 
             <div className="form-group">
               <label className="form-label">Product Image</label>
-              <div 
+              <div
                 style={{
                   border: '2px dashed var(--color-border, #444)',
                   borderRadius: '8px',
@@ -193,14 +193,14 @@ export default function AdminProductModal({ product, onClose, onSaved }) {
                 }}
                 onClick={() => document.getElementById('product-image-file').click()}
               >
-                <input 
+                <input
                   id="product-image-file"
-                  type="file" 
+                  type="file"
                   accept="image/jpeg, image/png, image/gif, image/webp, image/bmp, image/tiff, .heic, .avif"
-                  style={{ display: 'none' }} 
+                  style={{ display: 'none' }}
                   onChange={handleFileChange}
                 />
-                
+
                 {uploading ? (
                   <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.5rem' }}>
                     <i className="fa-solid fa-spinner fa-spin" style={{ fontSize: '1.5rem', color: 'var(--color-primary)' }}></i>
@@ -208,10 +208,10 @@ export default function AdminProductModal({ product, onClose, onSaved }) {
                   </div>
                 ) : form.image ? (
                   <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.5rem' }}>
-                    <img 
-                      src={form.image} 
-                      alt="Preview" 
-                      style={{ maxHeight: '100px', maxWidth: '100%', objectFit: 'contain', borderRadius: '4px', marginBottom: '0.5rem' }} 
+                    <img
+                      src={form.image}
+                      alt="Preview"
+                      style={{ maxHeight: '100px', maxWidth: '100%', objectFit: 'contain', borderRadius: '4px', marginBottom: '0.5rem' }}
                     />
                     <span style={{ fontSize: '0.85rem', color: 'var(--color-primary)' }}>Click or drag to replace image</span>
                   </div>

@@ -2254,6 +2254,7 @@ select.form-input-text option {
     padding: 1rem !important;
     gap: 1rem !important;
   }
+
   .admin-sidebar nav {
     flex-direction: row !important;
     overflow-x: auto !important;
@@ -2261,12 +2262,14 @@ select.form-input-text option {
     width: 100% !important;
     padding-bottom: 0.5rem;
   }
+
   .admin-sidebar nav button {
     width: auto !important;
     flex-shrink: 0 !important;
     padding: 8px 12px !important;
     font-size: 0.72rem !important;
   }
+
   .admin-layout-container {
     padding-top: 80px !important;
   }
@@ -2319,54 +2322,71 @@ select.form-input-text option {
   .mobile-bottom-nav {
     display: flex;
   }
+
   body {
     padding-bottom: 60px;
   }
+
   .theme-toggle-trigger {
     display: none !important;
   }
+
   .nav-actions .auth-links,
   .user-menu,
   .menu-toggle {
     display: none !important;
   }
+
   /* Scale down paddings for mobile */
-  section.py-32, .py-32 {
+  section.py-32,
+  .py-32 {
     padding-top: 4rem !important;
     padding-bottom: 4rem !important;
   }
-  footer.py-24, .py-24 {
+
+  footer.py-24,
+  .py-24 {
     padding-top: 3rem !important;
     padding-bottom: 3rem !important;
   }
+
   /* iPad Mini Header specific overrides */
   .container {
     padding: 0 1rem !important;
   }
+
   .logo {
     font-size: 1.2rem !important;
     gap: 8px !important;
   }
+
   .logo-img {
     width: 34px !important;
     height: 34px !important;
   }
+
   .nav-actions {
     margin-left: 0.5rem !important;
     gap: 0.5rem !important;
   }
+
   /* Elevate interactive elements above bottom nav */
   .cart-drawer {
     z-index: 10000 !important;
   }
+
   .modal-overlay {
     z-index: 10005 !important;
   }
+
   .toast-container {
     z-index: 10010 !important;
   }
+
   /* Prevent browser auto-zoom on form focus */
-  input, select, textarea {
+  input,
+  select,
+  textarea {
     font-size: 16px !important;
   }
 }
@@ -2376,36 +2396,44 @@ select.form-input-text option {
     margin-left: 0.5rem !important;
     gap: 0.4rem !important;
   }
+
   .cart-trigger {
     width: 34px !important;
     height: 34px !important;
   }
+
   .logo {
     font-size: 1rem !important;
     gap: 5px !important;
   }
+
   .logo-img {
     width: 30px !important;
     height: 30px !important;
   }
+
   /* Grid 2-column layout for Shop Catalog on mobile */
   .products-grid {
     grid-template-columns: repeat(2, 1fr) !important;
     gap: 0.75rem !important;
     width: 100% !important;
   }
+
   .product-card {
     border-radius: 8px !important;
     width: 100% !important;
   }
+
   .product-info {
     padding: 0.75rem !important;
     gap: 0.25rem !important;
   }
+
   .product-category {
     font-size: 0.65rem !important;
     margin-bottom: 2px !important;
   }
+
   .product-title {
     font-size: 0.82rem !important;
     line-clamp: 2 !important;
@@ -2417,17 +2445,22 @@ select.form-input-text option {
     line-height: 1.1rem !important;
     margin-bottom: 0.5rem !important;
   }
+
   .product-info p {
-    display: none !important; /* Hide long card descriptions on 2-col mobile view for premium spacing */
+    display: none !important;
+    /* Hide long card descriptions on 2-col mobile view for premium spacing */
   }
+
   .product-footer {
     margin-top: auto !important;
     padding-top: 0.5rem !important;
     border-top: 1px solid var(--glass-border) !important;
   }
+
   .product-price {
     font-size: 0.85rem !important;
   }
+
   .product-add-btn {
     width: 28px !important;
     height: 28px !important;
@@ -2437,6 +2470,7 @@ select.form-input-text option {
 
 /* Enforce edge padding & full width occupancy across all mobile containers & shop sections */
 @media (max-width: 768px) {
+
   .container,
   div.container,
   section .container,
@@ -2447,6 +2481,7 @@ select.form-input-text option {
     box-sizing: border-box !important;
     width: 100% !important;
   }
+
   .products-grid,
   .features-grid,
   .inquiry-grid,
@@ -2454,72 +2489,89 @@ select.form-input-text option {
     width: 100% !important;
     max-width: 100% !important;
   }
+
   .product-card,
   .feature-card,
   .animate-on-scroll {
     width: 100% !important;
     box-sizing: border-box !important;
   }
+
   /* Section headers typography scaling */
   .section-title {
     font-size: 1.85rem !important;
     line-height: 1.2 !important;
     margin-bottom: 0.35rem !important;
   }
+
   .section-subtitle {
     font-size: 0.88rem !important;
     margin-top: 0.4rem !important;
     line-height: 1.45 !important;
   }
+
   .section-title-wrap {
     margin-bottom: 2rem !important;
   }
+
   .section {
     padding: 3.5rem 0 2rem !important;
   }
+
   /* Feature cards & inquiry form padding */
   .feature-card {
     padding: 1.5rem 1.25rem !important;
   }
+
   .feature-icon {
     font-size: 2rem !important;
     margin-bottom: 1rem !important;
   }
+
   .feature-card h3 {
     font-size: 1.1rem !important;
     margin-bottom: 0.5rem !important;
   }
+
   .feature-card p {
     font-size: 0.85rem !important;
   }
+
   .inquiry-form-panel {
     padding: 1.5rem 1.25rem !important;
   }
+
   .catalog-controls {
     padding: 1rem !important;
     margin-bottom: 1.5rem !important;
     gap: 1rem !important;
   }
+
   /* Modals */
   .modal-box {
     padding: 1.75rem 1.25rem !important;
     border-radius: 12px !important;
   }
+
   .product-modal-image-col {
     padding: 1.5rem !important;
     border-right: none !important;
     border-bottom: 1px solid var(--glass-border) !important;
   }
+
   .product-modal-details-col {
     padding: 1.5rem 1.25rem !important;
   }
+
   .product-modal-title {
     font-size: 1.4rem !important;
   }
+
   .product-modal-price {
     font-size: 1.2rem !important;
     margin-bottom: 1rem !important;
   }
+
   .product-modal-desc {
     font-size: 0.85rem !important;
     margin-bottom: 1.25rem !important;
@@ -2527,6 +2579,7 @@ select.form-input-text option {
 }
 
 @media (max-width: 480px) {
+
   .container,
   div.container,
   section .container,
@@ -2537,22 +2590,28 @@ select.form-input-text option {
     box-sizing: border-box !important;
     width: 100% !important;
   }
+
   .products-grid {
     gap: 8px !important;
     width: 100% !important;
   }
+
   .product-card {
     width: 100% !important;
   }
+
   .section-title {
     font-size: 1.55rem !important;
   }
+
   .section-subtitle {
     font-size: 0.82rem !important;
   }
+
   .feature-card {
     padding: 1.25rem 1rem !important;
   }
+
   .inquiry-form-panel {
     padding: 1.25rem 1rem !important;
   }

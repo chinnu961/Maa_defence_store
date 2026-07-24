@@ -275,16 +275,16 @@ export default function Profile() {
                   <p style={{ margin: 0, color: 'var(--color-muted)', fontSize: '0.9rem' }}>{user.email}</p>
                 </div>
               </div>
-              <button 
+              <button
                 onClick={handleLogout}
-                style={{ 
-                  background: 'rgba(244, 67, 54, 0.1)', 
-                  border: '1px solid rgba(244, 67, 54, 0.3)', 
-                  color: '#ff5252', 
-                  cursor: 'pointer', 
-                  padding: '8px 16px', 
-                  borderRadius: '8px', 
-                  fontWeight: 'bold', 
+                style={{
+                  background: 'rgba(244, 67, 54, 0.1)',
+                  border: '1px solid rgba(244, 67, 54, 0.3)',
+                  color: '#ff5252',
+                  cursor: 'pointer',
+                  padding: '8px 16px',
+                  borderRadius: '8px',
+                  fontWeight: 'bold',
                   fontSize: '0.85rem',
                   display: 'flex',
                   alignItems: 'center',
