@@ -75,6 +75,11 @@ async def lifespan(app: FastAPI):
     except Exception:
         db.rollback()
     try:
+        db.execute(text("ALTER TABLE products ALTER COLUMN image TYPE TEXT"))
+        db.commit()
+    except Exception:
+        db.rollback()
+    try:
         seed_products(db)
         seed_first_admin(db)
     finally:

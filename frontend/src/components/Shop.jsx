@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Reveal from './Reveal.jsx';
 import { fetchProducts } from '../api/products.js';
+import { getImageUrl } from '../api/client.js';
 
 const CATEGORIES = [
   { id: 'all', label: 'All Gear' },
@@ -21,7 +22,7 @@ function ProductCard({ product, onOpen }) {
       <div className="product-image-container" onClick={() => onOpen(product)} style={{ cursor: 'pointer' }}>
         {isNcc && <span className="product-badge ncc">NCC SPEC</span>}
         {!isNcc && isArmy && <span className="product-badge">ARMY SPEC</span>}
-        <img src={product.image} alt={product.name} className="product-image" />
+        <img src={getImageUrl(product.image)} alt={product.name} className="product-image" />
       </div>
       <div className="product-info">
         <span className="product-category">{product.category}</span>

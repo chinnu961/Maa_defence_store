@@ -5,6 +5,7 @@ import { useNotifications } from '../context/NotificationsContext.jsx';
 import { fetchProducts, deleteProduct } from '../api/products.js';
 import { fetchAdminOrders, updateAdminOrderStatus, fetchAdminStats, fetchAdminUsers } from '../api/admin.js';
 import AdminProductModal from '../components/AdminProductModal.jsx';
+import { getImageUrl } from '../api/client.js';
 
 export default function AdminDashboard() {
   const { user, isAuthenticated, isAdmin, logout } = useAuth();
@@ -420,91 +421,47 @@ export default function AdminDashboard() {
   };
 
   return (
-    <main className="admin-layout-container" style={{ padding: '100px 0 0' }}>
+    <main className="admin-layout-container">
       {/* Sidebar Navigation */}
       <aside className="admin-sidebar">
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '0.4rem' }}>
+        <div className="admin-sidebar-header">
           <h3 style={{ margin: 0, color: 'var(--color-primary)', fontSize: '1.25rem', textTransform: 'uppercase', letterSpacing: '0.05em', fontFamily: 'var(--font-display)' }}>Control Suite</h3>
           <span style={{ fontSize: '0.8rem', color: 'var(--accent-gold)', fontWeight: 'bold', display: 'inline-flex', alignItems: 'center', gap: 6 }}>
             <i className="fa-solid fa-user-shield"></i> Store Admin
           </span>
         </div>
 
-        <nav style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
+        <nav className="admin-sidebar-nav">
           <button
             onClick={() => handleTabChange('orders')}
-            className="btn"
-            style={{
-              justifyContent: 'flex-start',
-              width: '100%',
-              background: activeTab === 'orders' ? 'rgba(212, 175, 55, 0.15)' : 'transparent',
-              border: activeTab === 'orders' ? '1px solid var(--accent-gold)' : '1px solid transparent',
-              color: activeTab === 'orders' ? 'var(--accent-gold)' : 'var(--color-secondary)',
-              padding: '12px 16px',
-              borderRadius: '8px',
-              textTransform: 'none',
-              fontWeight: '600'
-            }}
+            className={`btn admin-nav-btn ${activeTab === 'orders' ? 'active' : ''}`}
           >
-            <i className="fa-solid fa-clipboard-list" style={{ marginRight: '12px', fontSize: '1.1rem' }}></i>
-            Manage Orders
+            <i className="fa-solid fa-clipboard-list"></i>
+            <span>Manage Orders</span>
           </button>
 
           <button
             onClick={() => handleTabChange('products')}
-            className="btn"
-            style={{
-              justifyContent: 'flex-start',
-              width: '100%',
-              background: activeTab === 'products' ? 'rgba(212, 175, 55, 0.15)' : 'transparent',
-              border: activeTab === 'products' ? '1px solid var(--accent-gold)' : '1px solid transparent',
-              color: activeTab === 'products' ? 'var(--accent-gold)' : 'var(--color-secondary)',
-              padding: '12px 16px',
-              borderRadius: '8px',
-              textTransform: 'none',
-              fontWeight: '600'
-            }}
+            className={`btn admin-nav-btn ${activeTab === 'products' ? 'active' : ''}`}
           >
-            <i className="fa-solid fa-box-open" style={{ marginRight: '12px', fontSize: '1.1rem' }}></i>
-            Manage Products
+            <i className="fa-solid fa-box-open"></i>
+            <span>Manage Products</span>
           </button>
 
           <button
             onClick={() => handleTabChange('users')}
-            className="btn"
-            style={{
-              justifyContent: 'flex-start',
-              width: '100%',
-              background: activeTab === 'users' ? 'rgba(212, 175, 55, 0.15)' : 'transparent',
-              border: activeTab === 'users' ? '1px solid var(--accent-gold)' : '1px solid transparent',
-              color: activeTab === 'users' ? 'var(--accent-gold)' : 'var(--color-secondary)',
-              padding: '12px 16px',
-              borderRadius: '8px',
-              textTransform: 'none',
-              fontWeight: '600'
-            }}
+            className={`btn admin-nav-btn ${activeTab === 'users' ? 'active' : ''}`}
           >
-            <i className="fa-solid fa-users" style={{ marginRight: '12px', fontSize: '1.1rem' }}></i>
-            Registered Users
+            <i className="fa-solid fa-users"></i>
+            <span>Registered Users</span>
           </button>
 
           <button
             onClick={() => handleTabChange('payments')}
-            className="btn"
-            style={{
-              justifyContent: 'flex-start',
-              width: '100%',
-              background: activeTab === 'payments' ? 'rgba(212, 175, 55, 0.15)' : 'transparent',
-              border: activeTab === 'payments' ? '1px solid var(--accent-gold)' : '1px solid transparent',
-              color: activeTab === 'payments' ? 'var(--accent-gold)' : 'var(--color-secondary)',
-              padding: '12px 16px',
-              borderRadius: '8px',
-              textTransform: 'none',
-              fontWeight: '600'
-            }}
+            className={`btn admin-nav-btn ${activeTab === 'payments' ? 'active' : ''}`}
           >
-            <i className="fa-solid fa-file-invoice-dollar" style={{ marginRight: '12px', fontSize: '1.1rem' }}></i>
-            Payments History
+            <i className="fa-solid fa-file-invoice-dollar"></i>
+            <span>Payments History</span>
           </button>
         </nav>
       </aside>
@@ -772,7 +729,7 @@ export default function AdminDashboard() {
                     {filteredProducts.map(p => (
                       <tr key={p.id} style={{ borderBottom: '1px solid var(--glass-border)' }}>
                         <td style={{ padding: '10px' }}>
-                          <img src={p.image} alt={p.name} style={{ width: '50px', height: '50px', objectFit: 'contain', borderRadius: '4px' }} />
+                          <img src={getImageUrl(p.image)} alt={p.name} style={{ width: '50px', height: '50px', objectFit: 'contain', borderRadius: '4px' }} />
                         </td>
                         <td style={{ padding: '10px' }}>
                           <div style={{ fontWeight: 'bold' }}>{p.name}</div>

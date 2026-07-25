@@ -8,11 +8,11 @@ export default defineConfig({
       // Forward all /api requests from the Vite dev server to the FastAPI backend,
       // so the React app can call fetch('/api/...') without hitting CORS in dev.
       '/api': {
-        target: process.env.VITE_API_PROXY_TARGET || 'http://localhost:8000',
+        target: 'https://maa-defence-api.onrender.com',
         changeOrigin: true
       },
       '/uploads': {
-        target: process.env.VITE_API_PROXY_TARGET || 'http://localhost:8000',
+        target: 'https://maa-defence-api.onrender.com',
         changeOrigin: true
       }
     }

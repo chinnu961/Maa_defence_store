@@ -11,6 +11,8 @@ export default function Login() {
   const [form, setForm] = useState({ email: '', password: '' });
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState('');
+  const [isAdminPortal, setIsAdminPortal] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
 
   const handleChange = (e) => {
     setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
@@ -30,72 +32,149 @@ export default function Login() {
   };
 
   return (
-    <div className="auth-page">
-      <div className="auth-box glass-panel" style={{ position: 'relative' }}>
-        <button onClick={() => navigate(-1)} className="back-btn" style={{ position: 'absolute', top: '15px', left: '15px', background: 'transparent', border: 'none', color: 'var(--color-secondary)', cursor: 'pointer', fontSize: '1.2rem', padding: '5px' }}>
+    <div className={`auth-split-layout ${isAdminPortal ? 'admin-theme' : ''}`}>
+      {/* Left Branding Side */}
+      <div className="auth-brand-side">
+        <div className="brand-scan-overlay"></div>
+        <div className="brand-content">
+          <Link to="/" className="brand-logo-wrap">
+            <img src="/assets/ncc_logo.png" alt="NCC Logo" className="brand-logo-img" />
+          </Link>
+          <h1 className="brand-title">
+            MAA <span>DEFENCE STORES</span>
+          </h1>
+          <p className="brand-tagline">
+            {isAdminPortal 
+              ? "Accessing the secure central control suite for inventory, fittings, and cadet registries." 
+              : "Premium Uniform Customization & Accessories for NCC Cadets & Defence Personnel."}
+          </p>
+          <div className="brand-tech-data">
+            <div className="tech-item">
+              <span className="tech-label">PORTAL STATE</span>
+              <span className="tech-value state-active">ONLINE</span>
+            </div>
+            <div className="tech-item">
+              <span className="tech-label">SECURITY PROTOCOL</span>
+              <span className="tech-value">{isAdminPortal ? "LEVEL-4 ADMIN" : "SSL ENCRYPTED"}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Right Form Side */}
+      <div className="auth-form-side">
+        <button onClick={() => navigate('/')} className="auth-close-btn" title="Back to Home">
           <i className="fa-solid fa-arrow-left"></i>
         </button>
 
-        <Link to="/" className="logo auth-logo" style={{ marginTop: '1rem' }}>
-          <img src="/assets/ncc_logo.png" alt="NCC Logo" className="logo-img" />
-          MAA <span>DEFENCE STORES</span>
-        </Link>
+        <div className="auth-form-container">
+          {/* Portal Switcher Tabs */}
+          <div className="portal-tabs">
+            <button 
+              type="button"
+              className={`portal-tab ${!isAdminPortal ? 'active' : ''}`}
+              onClick={() => setIsAdminPortal(false)}
+            >
+              <i className="fa-solid fa-user-shield"></i> User Login
+            </button>
+            <button 
+              type="button"
+              className={`portal-tab ${isAdminPortal ? 'active' : ''}`}
+              onClick={() => setIsAdminPortal(true)}
+            >
+              <i className="fa-solid fa-shield-halved"></i> Admin Portal
+            </button>
+          </div>
 
-        <div className="auth-header">
-          <h2>Welcome Back</h2>
-          <p>Sign in to manage your orders and uniform fittings.</p>
+          <div className="auth-form-header">
+            <h2>{isAdminPortal ? "ADMIN COMMAND" : "WELCOME CADET"}</h2>
+            <p>
+              {isAdminPortal 
+                ? "Enter your secure administrator credentials to gain access."
+                : "Sign in to manage your orders, uniform customizer, and fittings."}
+            </p>
+          </div>
+
+          {error && (
+            <div className="auth-alert">
+              <i className="fa-solid fa-circle-exclamation"></i>
+              <span>{error}</span>
+            </div>
+          )}
+
+          <form onSubmit={handleSubmit} noValidate className="interactive-auth-form">
+            <div className="floating-form-group">
+              <input
+                type="email"
+                name="email"
+                className="floating-input"
+                placeholder=" "
+                value={form.email}
+                onChange={handleChange}
+                required
+                autoComplete="email"
+              />
+              <label className="floating-label">Email Address</label>
+              <i className="fa-regular fa-envelope input-icon"></i>
+            </div>
+
+            <div className="floating-form-group">
+              <input
+                type={showPassword ? 'text' : 'password'}
+                name="password"
+                className="floating-input"
+                placeholder=" "
+                value={form.password}
+                onChange={handleChange}
+                required
+                minLength={6}
+                autoComplete="current-password"
+                style={{ paddingRight: '2.8rem' }}
+              />
+              <label className="floating-label">Password</label>
+              <i className="fa-solid fa-lock input-icon"></i>
+              <button
+                type="button"
+                onClick={() => setShowPassword(!showPassword)}
+                style={{
+                  position: 'absolute',
+                  right: '1rem',
+                  top: '50%',
+                  transform: 'translateY(-50%)',
+                  background: 'none',
+                  border: 'none',
+                  color: 'var(--color-muted)',
+                  cursor: 'pointer',
+                  padding: 0,
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center'
+                }}
+              >
+                <i className={`fa-solid ${showPassword ? 'fa-eye-slash' : 'fa-eye'}`}></i>
+              </button>
+            </div>
+
+            <button type="submit" className="btn btn-primary auth-submit-btn" disabled={submitting}>
+              {submitting ? (
+                <>
+                  <i className="fa-solid fa-compass fa-spin" style={{ marginRight: '8px' }}></i> Authenticating...
+                </>
+              ) : (
+                <>
+                  {isAdminPortal ? "Access Control Room" : "Sign In"}
+                  <i className="fa-solid fa-arrow-right-to-bracket" style={{ marginLeft: '10px' }}></i>
+                </>
+              )}
+            </button>
+          </form>
+
+          {!isAdminPortal && (
+            <p className="auth-footer-text">
+              Don&apos;t have an account? <Link to="/register">Create one</Link>
+            </p>
+          )}
         </div>
-
-        {error && (
-          <div className="auth-alert">
-            <i className="fa-solid fa-circle-exclamation"></i> {error}
-          </div>
-        )}
-
-        <form onSubmit={handleSubmit} noValidate>
-          <div className="form-group">
-            <label className="form-label">Email Address</label>
-            <input
-              type="email"
-              name="email"
-              className="form-input-text"
-              placeholder="you@example.com"
-              value={form.email}
-              onChange={handleChange}
-              required
-              autoComplete="email"
-            />
-          </div>
-
-          <div className="form-group">
-            <label className="form-label">Password</label>
-            <input
-              type="password"
-              name="password"
-              className="form-input-text"
-              placeholder="Enter your password"
-              value={form.password}
-              onChange={handleChange}
-              required
-              minLength={6}
-              autoComplete="current-password"
-            />
-          </div>
-
-          <button type="submit" className="btn btn-primary auth-submit" disabled={submitting}>
-            {submitting ? (
-              <>
-                <i className="fa-solid fa-circle-notch fa-spin"></i> Signing In...
-              </>
-            ) : (
-              'Sign In'
-            )}
-          </button>
-        </form>
-
-        <p className="auth-footer-text">
-          Don&apos;t have an account? <Link to="/register">Create one</Link>
-        </p>
       </div>
     </div>
   );

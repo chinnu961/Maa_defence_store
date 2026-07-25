@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { createProduct, updateProduct, uploadProductImage } from '../api/products.js';
+import { getImageUrl } from '../api/client.js';
 
 const CATEGORIES = ['headwear', 'clothing', 'accessories', 'tactical', 'general'];
 
@@ -20,20 +21,22 @@ export default function AdminProductModal({ product, onClose, onSaved }) {
   const [uploading, setUploading] = useState(false);
   const [uploadError, setUploadError] = useState('');
 
-  const handleFileChange = async (e) => {
+  const handleFileChange = (e) => {
     const file = e.target.files[0];
     if (!file) return;
 
     setUploading(true);
     setUploadError('');
-    try {
-      const res = await uploadProductImage(file);
-      setForm(prev => ({ ...prev, image: res.url }));
-    } catch (err) {
-      setUploadError(err.response?.data?.detail || 'Failed to upload image. Please try again.');
-    } finally {
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      setForm(prev => ({ ...prev, image: reader.result }));
       setUploading(false);
-    }
+    };
+    reader.onerror = () => {
+      setUploadError('Failed to read image file.');
+      setUploading(false);
+    };
+    reader.readAsDataURL(file);
   };
 
   useEffect(() => {
@@ -174,21 +177,22 @@ export default function AdminProductModal({ product, onClose, onSaved }) {
                   transition: 'all 0.2s ease',
                   position: 'relative'
                 }}
-                onDragOver={(e) => e.preventDefault()}
-                onDrop={async (e) => {
+                onDragOver={(e) => e.preventDefault()}                 onDrop={(e) => {
                   e.preventDefault();
                   const file = e.dataTransfer.files[0];
                   if (file) {
                     setUploading(true);
                     setUploadError('');
-                    try {
-                      const res = await uploadProductImage(file);
-                      setForm(prev => ({ ...prev, image: res.url }));
-                    } catch (err) {
-                      setUploadError(err.response?.data?.detail || 'Failed to upload image.');
-                    } finally {
+                    const reader = new FileReader();
+                    reader.onloadend = () => {
+                      setForm(prev => ({ ...prev, image: reader.result }));
                       setUploading(false);
-                    }
+                    };
+                    reader.onerror = () => {
+                      setUploadError('Failed to read image file.');
+                      setUploading(false);
+                    };
+                    reader.readAsDataURL(file);
                   }
                 }}
                 onClick={() => document.getElementById('product-image-file').click()}
@@ -204,12 +208,12 @@ export default function AdminProductModal({ product, onClose, onSaved }) {
                 {uploading ? (
                   <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.5rem' }}>
                     <i className="fa-solid fa-spinner fa-spin" style={{ fontSize: '1.5rem', color: 'var(--color-primary)' }}></i>
-                    <span style={{ fontSize: '0.9rem', color: 'var(--color-secondary)' }}>Uploading image...</span>
+                    <span style={{ fontSize: '0.9rem', color: 'var(--color-secondary)' }}>Reading image file...</span>
                   </div>
                 ) : form.image ? (
                   <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.5rem' }}>
                     <img
-                      src={form.image}
+                      src={getImageUrl(form.image)}
                       alt="Preview"
                       style={{ maxHeight: '100px', maxWidth: '100%', objectFit: 'contain', borderRadius: '4px', marginBottom: '0.5rem' }}
                     />

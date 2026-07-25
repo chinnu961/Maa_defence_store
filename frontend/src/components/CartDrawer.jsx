@@ -1,12 +1,16 @@
 import { useState, useMemo } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { useCart } from '../context/CartContext.jsx';
 import { useAuth } from '../context/AuthContext.jsx';
 import CheckoutModal from './CheckoutModal.jsx';
+import { getImageUrl } from '../api/client.js';
 
 export default function CartDrawer() {
   const { cart, drawerOpen, closeDrawer, changeQuantity, removeFromCart, totals } = useCart();
   const { user } = useAuth();
   const [checkoutOpen, setCheckoutOpen] = useState(false);
+  const navigate = useNavigate();
+  const location = useLocation();
   // selectedIds: set of item IDs that are checked. Default: all selected.
   const [selectedIds, setSelectedIds] = useState(() => new Set());
 
@@ -73,6 +77,11 @@ export default function CartDrawer() {
 
   const handleCheckout = () => {
     if (selectedTotals.count === 0) return;
+    if (!user) {
+      closeDrawer();
+      navigate('/login', { state: { from: location } });
+      return;
+    }
     setCheckoutOpen(true);
   };
 
@@ -143,7 +152,7 @@ export default function CartDrawer() {
                     />
                   </label>
 
-                  <img src={item.image} alt={item.name} className="cart-drawer-image cart-item-image" />
+                  <img src={getImageUrl(item.image)} alt={item.name} className="cart-drawer-image cart-item-image" />
                   <div className="cart-item-info">
                     <h4>{item.name}</h4>
                     <p className="cart-item-details">{item.details}</p>

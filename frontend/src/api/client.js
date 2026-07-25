@@ -48,4 +48,15 @@ export function getApiErrorMessage(error, fallback = 'Something went wrong. Plea
   return fallback;
 }
 
+export function getImageUrl(imagePath) {
+  if (!imagePath) return '/assets/military_uniform.png';
+  if (imagePath.startsWith('http') || imagePath.startsWith('data:')) {
+    return imagePath;
+  }
+  if (imagePath.startsWith('/uploads/')) {
+    return `https://maa-defence-api.onrender.com${imagePath}`;
+  }
+  return imagePath;
+}
+
 export default apiClient;

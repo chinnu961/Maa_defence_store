@@ -6,6 +6,7 @@ import { useAuth } from '../context/AuthContext.jsx';
 import { useNotifications } from '../context/NotificationsContext.jsx';
 import { useTheme } from '../context/ThemeContext.jsx';
 import { fetchProducts } from '../api/products.js';
+import { getImageUrl } from '../api/client.js';
 
 const NAV_LINKS = [
   { href: '#home', label: 'Home' },
@@ -26,6 +27,7 @@ export default function Header() {
   const navigate = useNavigate();
   const location = useLocation();
   const userMenuRef = useRef(null);
+  const mobileUserMenuRef = useRef(null);
   const notifRef = useRef(null);
   const searchRef = useRef(null);
   const [notifOpen, setNotifOpen] = useState(false);
@@ -108,7 +110,10 @@ export default function Header() {
 
   useEffect(() => {
     const handleClickOutside = (e) => {
-      if (userMenuRef.current && !userMenuRef.current.contains(e.target)) {
+      if (
+        (userMenuRef.current && !userMenuRef.current.contains(e.target)) &&
+        (mobileUserMenuRef.current && !mobileUserMenuRef.current.contains(e.target))
+      ) {
         setUserMenuOpen(false);
       }
       if (notifRef.current && !notifRef.current.contains(e.target)) {
@@ -176,6 +181,37 @@ export default function Header() {
         <div className="nav-actions">
           {isAuthenticated && (
             <>
+              {/* Mobile Profile Option */}
+              <div 
+                className="cart-trigger mobile-profile-trigger" 
+                title="User Profile" 
+                onClick={() => setUserMenuOpen(!userMenuOpen)} 
+                ref={mobileUserMenuRef} 
+                style={{ position: 'relative' }}
+              >
+                <i className="fa-solid fa-circle-user"></i>
+                {userMenuOpen && (
+                  <div className="user-menu-dropdown" style={{ right: 0, width: 220, top: 'calc(100% + 10px)' }} onClick={e => e.stopPropagation()}>
+                    <div className="user-name">{user.email}</div>
+                    {isAdmin ? (
+                      <Link to="/admin/profile" onClick={() => setUserMenuOpen(false)} style={{ display: 'block', padding: '10px 15px', color: 'var(--color-primary)' }}>
+                        <i className="fa-solid fa-user-pen" style={{ marginRight: 8 }}></i>
+                        Edit Profile
+                      </Link>
+                    ) : (
+                      <Link to="/profile" onClick={() => setUserMenuOpen(false)} style={{ display: 'block', padding: '10px 15px', color: 'var(--color-primary)' }}>
+                        <i className="fa-solid fa-user-pen" style={{ marginRight: 8 }}></i>
+                        My Profile
+                      </Link>
+                    )}
+                    <button onClick={handleLogout} style={{ width: '100%', textAlign: 'left', background: 'none', border: 'none', padding: '10px 15px', cursor: 'pointer', color: 'var(--color-primary)', display: 'block' }}>
+                      <i className="fa-solid fa-right-from-bracket" style={{ marginRight: 8 }}></i>
+                      Logout
+                    </button>
+                  </div>
+                )}
+              </div>
+
               <div className="cart-trigger" title="Search Products" onClick={() => setSearchOpen(!searchOpen)} ref={searchRef} style={{ position: 'relative' }}>
                 <i className="fa-solid fa-magnifying-glass"></i>
                 {searchOpen && (
@@ -191,7 +227,7 @@ export default function Header() {
                     <div style={{ maxHeight: 300, overflowY: 'auto', marginTop: '1rem' }}>
                       {searchResults.length > 0 ? searchResults.map(p => (
                         <div key={p.id} onClick={() => { setSearchOpen(false); setSearchQuery(''); navigate(`/product/${p.id}`); }} style={{ padding: '0.5rem', borderBottom: '1px solid var(--glass-border)', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                          <img src={p.image} style={{ width: 40, height: 40, objectFit: 'contain', borderRadius: 4 }} alt={p.name} />
+                          <img src={getImageUrl(p.image)} style={{ width: 40, height: 40, objectFit: 'contain', borderRadius: 4 }} alt={p.name} />
                           <div>
                             <div style={{ fontSize: '0.9rem', fontWeight: 'bold' }}>{p.name}</div>
                             <div style={{ fontSize: '0.8rem', color: 'var(--accent-gold)' }}>₹{p.price}</div>
@@ -271,7 +307,7 @@ export default function Header() {
             </div>
           )}
 
-          {isAuthenticated && !isAdmin && (
+          {!isAdmin && (
             <div className="cart-trigger" id="cartTrigger" title="Open Cart" onClick={openDrawer}>
               <i className="fa-solid fa-cart-shopping"></i>
               <span className="cart-badge" id="cartBadge">{totals.itemCount}</span>

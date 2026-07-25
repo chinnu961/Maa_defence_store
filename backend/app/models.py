@@ -64,7 +64,7 @@ class Product(Base):
     category: Mapped[str] = mapped_column(String(50), nullable=False)
     price: Mapped[float] = mapped_column(Numeric(10, 2), nullable=False)
     badge: Mapped[str] = mapped_column(String(50), nullable=False)
-    image: Mapped[str] = mapped_column(String(255), nullable=False)
+    image: Mapped[str] = mapped_column(Text, nullable=False)
     description: Mapped[str] = mapped_column(Text, nullable=True)
     is_active: Mapped[bool] = mapped_column(Boolean, default=True)
     stock: Mapped[int] = mapped_column(Integer, default=1000)

@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useCart } from '../context/CartContext.jsx';
 import { fetchProducts } from '../api/products.js';
+import { getImageUrl } from '../api/client.js';
 
 function getAvailableSizes(category, name) {
   if (!name) return null;
@@ -134,7 +135,7 @@ export default function ProductDetails() {
                 justifyContent: 'center'
               }}>
                 <img
-                  src={product.image}
+                  src={getImageUrl(product.image)}
                   alt={product.name}
                   style={{ width: '90%', height: '90%', objectFit: 'contain' }}
                 />
