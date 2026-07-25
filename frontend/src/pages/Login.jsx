@@ -11,7 +11,6 @@ export default function Login() {
   const [form, setForm] = useState({ email: '', password: '' });
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState('');
-  const [isAdminPortal, setIsAdminPortal] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
 
   const handleChange = (e) => {
@@ -32,7 +31,7 @@ export default function Login() {
   };
 
   return (
-    <div className={`auth-split-layout ${isAdminPortal ? 'admin-theme' : ''}`}>
+    <div className="auth-split-layout">
       {/* Left Branding Side */}
       <div className="auth-brand-side">
         <div className="brand-scan-overlay"></div>
@@ -44,9 +43,7 @@ export default function Login() {
             MAA <span>DEFENCE STORES</span>
           </h1>
           <p className="brand-tagline">
-            {isAdminPortal 
-              ? "Accessing the secure central control suite for inventory, fittings, and cadet registries." 
-              : "Premium Uniform Customization & Accessories for NCC Cadets & Defence Personnel."}
+            Premium Uniform Customization & Accessories for NCC Cadets & Defence Personnel.
           </p>
           <div className="brand-tech-data">
             <div className="tech-item">
@@ -55,7 +52,7 @@ export default function Login() {
             </div>
             <div className="tech-item">
               <span className="tech-label">SECURITY PROTOCOL</span>
-              <span className="tech-value">{isAdminPortal ? "LEVEL-4 ADMIN" : "SSL ENCRYPTED"}</span>
+              <span className="tech-value">SSL ENCRYPTED</span>
             </div>
           </div>
         </div>
@@ -68,30 +65,10 @@ export default function Login() {
         </button>
 
         <div className="auth-form-container">
-          {/* Portal Switcher Tabs */}
-          <div className="portal-tabs">
-            <button 
-              type="button"
-              className={`portal-tab ${!isAdminPortal ? 'active' : ''}`}
-              onClick={() => setIsAdminPortal(false)}
-            >
-              <i className="fa-solid fa-user-shield"></i> User Login
-            </button>
-            <button 
-              type="button"
-              className={`portal-tab ${isAdminPortal ? 'active' : ''}`}
-              onClick={() => setIsAdminPortal(true)}
-            >
-              <i className="fa-solid fa-shield-halved"></i> Admin Portal
-            </button>
-          </div>
-
           <div className="auth-form-header">
-            <h2>{isAdminPortal ? "ADMIN COMMAND" : "WELCOME CADET"}</h2>
+            <h2>WELCOME CADET</h2>
             <p>
-              {isAdminPortal 
-                ? "Enter your secure administrator credentials to gain access."
-                : "Sign in to manage your orders, uniform customizer, and fittings."}
+              Sign in to manage your orders, uniform customizer, and fittings.
             </p>
           </div>
 
@@ -162,18 +139,16 @@ export default function Login() {
                 </>
               ) : (
                 <>
-                  {isAdminPortal ? "Access Control Room" : "Sign In"}
+                  Sign In
                   <i className="fa-solid fa-arrow-right-to-bracket" style={{ marginLeft: '10px' }}></i>
                 </>
               )}
             </button>
           </form>
 
-          {!isAdminPortal && (
-            <p className="auth-footer-text">
-              Don&apos;t have an account? <Link to="/register">Create one</Link>
-            </p>
-          )}
+          <p className="auth-footer-text">
+            Don&apos;t have an account? <Link to="/register">Create one</Link>
+          </p>
         </div>
       </div>
     </div>
